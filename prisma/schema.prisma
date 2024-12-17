@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "debian-openssl-3.0.x"]
+  previewFeatures = ["omitApi"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  ///订单号
+  orderNumber   String   @unique
+  ///下单时间
+  orderTime     DateTime
+  ///下单人
+  orderer       String   @default("")
+  ///回款
+  actualPayment Float?
+  ///成本
+  cost          Float?
+  /// 店铺
+  store         String
+  /// 订单状态：订单取消  已出货
+  status        String?
+  /// 订单html
+  orderHtml     String?
+
+  goods Goods[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Goods {
+  id      Int    @id @default(autoincrement())
+  /// 商品所属订单
+  Order   Order? @relation(fields: [orderId], references: [id])
+  orderId Int?
+
+  ///主图
+  mainImage String?
+  ///标题
+  title     String?
+  ///黄色标签的文本 :570396694863_台湾产86锁匙扣
+  sku       String?
+  ///价格
+  price     Float?
+  ///出售的数量
+  count     Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model KvConfig {
+  id        Int      @id @default(autoincrement())
+  key       String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  password  String
+  cookie    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

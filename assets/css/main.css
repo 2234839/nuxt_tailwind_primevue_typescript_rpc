@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 调整整体文字大小 */
+body {
+    font-size: 14px; /* 或者你想要的其他大小 */
+  }
