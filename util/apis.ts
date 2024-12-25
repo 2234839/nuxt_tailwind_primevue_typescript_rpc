@@ -3,5 +3,6 @@ export function serverNowDate() {
 }
 
 import { prisma as db } from "./db";
+import * as apiProxy from "./server/apiProxy";
 
-export { db };
+export { db, apiProxy };

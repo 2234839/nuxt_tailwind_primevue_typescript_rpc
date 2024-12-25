@@ -13,4 +13,7 @@ const user = {
     return user;
   },
 };
-export { user };
+
+import * as apiProxy from "~/util/server/apiProxy";
+
+export { user, apiProxy };

@@ -22,5 +22,6 @@
 <script setup lang="ts">
   const links = [
     { to: "/", text: "Home" },
+    { to: "/apiProxy", text: "ApiProxy" },
   ];
 </script>
