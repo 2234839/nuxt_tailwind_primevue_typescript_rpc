@@ -17,7 +17,46 @@
   async function test() {
     const res = await ClientAPI.apiProxy.createAndWaitForTasks({
       ...userConfig,
-      tasks: ["test"],
+      tasks: [
+        {
+          url: "/api/notification/pushMsg",
+          data: {
+            msg: "远程任务执行",
+            timeout: 7000,
+          },
+        },
+        {
+          url: "/api/search/fullTextSearchBlock",
+          data: {
+            query: "思源笔记",
+            method: 0,
+            types: {
+              audioBlock: true,
+              blockquote: true,
+              codeBlock: true,
+              databaseBlock: true,
+              document: true,
+              embedBlock: true,
+              heading: true,
+              htmlBlock: true,
+              iframeBlock: true,
+              list: false,
+              listItem: false,
+              mathBlock: true,
+              paragraph: true,
+              superBlock: true,
+              table: false,
+              videoBlock: true,
+              widgetBlock: true,
+            },
+            paths: [],
+            groupBy: 0,
+            orderBy: 0,
+            page: 1,
+            reqId: Date.now(),
+          },
+        },
+      ],
       pollInterval: 1000,
       timeout: 999999999999,
     });
